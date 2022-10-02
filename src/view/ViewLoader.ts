@@ -63,6 +63,8 @@ export class ViewLoader {
     }
   }
 
+  //TODO show question method
+
   static postMessageToWebview<T extends Message = Message>(message: T) {
     // post message from extension to webview
     const cls = this;

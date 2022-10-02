@@ -20,31 +20,62 @@
   ],
   "main": "./out/src/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "webview.open",
-        "title": "Open Webview",
-        "category": "Webview React"
-      },
-      {
-        "command": "extension.sendMessage",
-        "title": "Send Message to Webview",
-        "category": "Webview React"
-      }
-    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vscodeforces-sidebar-view",
+          "title": "VSCodeforces",
+          "icon": "media/icon.svg"
+        },
+        {
+          "id": "vscodeforces-sidebar-view2",
+          "title": "VSCodeforces",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "vscodeforces-sidebar-view": [
+        {
+          "type": "webview",
+          "id": "vscodeforces-sidebar",
+          "name": "VSCodeforces",
+          "icon": "media/icon.svg",
+          "contextualTitle": "Sample"
+        }
+      ],
+      "vscodeforces-sidebar-view2": [
+        {
+          "type": "webview",
+          "id": "vscodeforces-sidebar2",
+          "name": "VSCodeforces",
+          "icon": "media/icon.svg",
+          "contextualTitle": "Sample"
+        }
+      ]
+    },
+    "commands": [],
     "configuration": {
-      "title": "Webview React",
+      "title": "VSCodeforces",
       "properties": {
-        "webviewReact.userApiGender": {
+        "webviewReact.userKey": {
           "type": "string",
-          "default": "male",
+          "default": ""
+        },
+        "webviewReact.userSecret": {
+          "type": "string",
+          "default": ""
+        },
+        "webviewReact.showOnlyOnlineFriends": {
+          "type": "boolean",
+          "default": false,
           "enum": [
-            "male",
-            "female"
+            false,
+            true
           ],
           "enumDescriptions": [
-            "Fetching user information with gender of male",
-            "Fetching user information with gender of female"
+            "Fetch all friends information",
+            "Fetch friends information that are online"
           ]
         }
       }

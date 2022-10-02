@@ -1,26 +1,31 @@
 import * as vscode from 'vscode';
-import { ViewLoader } from './view/ViewLoader';
-import { CommonMessage } from './view/messages/messageTypes';
+import { SidebarProvider } from './view/SidebarProvider';
 
 export function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(
-    vscode.commands.registerCommand('webview.open', () => {
-      ViewLoader.showWebview(context);
-    }),
+  const sidebarProvider = new SidebarProvider(context.extensionUri);
+  sidebarProvider.setContext(context);
 
-    vscode.commands.registerCommand('extension.sendMessage', () => {
-      vscode.window
-        .showInputBox({
-          prompt: 'Send message to Webview',
-        })
-        .then(result => {
-          result &&
-            ViewLoader.postMessageToWebview<CommonMessage>({
-              type: 'COMMON',
-              payload: result,
-            });
-        });
-    })
+  context.subscriptions.push(
+    // vscode.commands.registerCommand('webview.open', () => {
+    //   ViewLoader.showWebview(context);
+    // }),
+
+    vscode.window.registerWebviewViewProvider('vscodeforces-sidebar', sidebarProvider),
+    vscode.window.registerWebviewViewProvider('vscodeforces-sidebar2', sidebarProvider)
+
+    // vscode.commands.registerCommand('extension.sendMessage', () => {
+    //   vscode.window
+    //     .showInputBox({
+    //       prompt: 'Send message to Webview',
+    //     })
+    //     .then(result => {
+    //       result &&
+    //         ViewLoader.postMessageToWebview<CommonMessage>({
+    //           type: 'COMMON',
+    //           payload: result,
+    //         });
+    //     });
+    // })
   );
 }
 
