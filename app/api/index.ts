@@ -1,1 +1,1 @@
-export const apiUrl = `https://randomuser.me/api/?gender=${apiUserGender}`;
+export const apiUrl = `https://codeforces.com/api`;
