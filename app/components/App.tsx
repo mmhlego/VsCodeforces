@@ -1,33 +1,11 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { MemoryRouter as Router, Link, Switch } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, MemoryRouter as Router, Switch } from 'react-router-dom';
+import { ReloadMessage } from '../../src/view/messages/messageTypes';
+import { ContextProvider } from '../context/MainContext';
 import { routes } from '../routes/config';
 import { RouteWithSubRoutes } from '../routes/RouteWithSubRoutes';
-import { MessagesContext } from '../context/MessageContext';
-import { CommonMessage, Message, ReloadMessage } from '../../src/view/messages/messageTypes';
 
 export const App = () => {
-  const [messagesFromExtension, setMessagesFromExtension] = useState<string[]>([]);
-
-  const handleMessagesFromExtension = useCallback(
-    (event: MessageEvent<Message>) => {
-      if (event.data.type === 'COMMON') {
-        const message = event.data as CommonMessage;
-        setMessagesFromExtension([...messagesFromExtension, message.payload]);
-      }
-    },
-    [messagesFromExtension]
-  );
-
-  useEffect(() => {
-    window.addEventListener('message', (event: MessageEvent<Message>) => {
-      handleMessagesFromExtension(event);
-    });
-
-    return () => {
-      window.removeEventListener('message', handleMessagesFromExtension);
-    };
-  }, [handleMessagesFromExtension]);
-
   const handleReloadWebview = () => {
     vscode.postMessage<ReloadMessage>({
       type: 'RELOAD',
@@ -35,9 +13,7 @@ export const App = () => {
   };
 
   return (
-    <Router
-      initialEntries={['/', '/about', '/message', '/message/received', '/message/send']}
-    >
+    <Router initialEntries={['/', '/about', '/message', '/message/received', '/message/send']}>
       <ul className="navbar">
         <li>
           <Link to="/">Home</Link>
@@ -51,13 +27,13 @@ export const App = () => {
       </ul>
       <button onClick={handleReloadWebview}>Reload Webview</button>
 
-      <MessagesContext.Provider value={messagesFromExtension}>
+      <ContextProvider>
         <Switch>
           {routes.map((route, i) => (
             <RouteWithSubRoutes key={i} {...route} />
           ))}
         </Switch>
-      </MessagesContext.Provider>
+      </ContextProvider>
     </Router>
   );
 };
