@@ -8,4 +8,6 @@ type VSCode = {
 
 declare const vscode: VSCode;
 
-declare const apiUserGender: string;
+declare const apiUserKey: string;
+declare const apiUserSecret: string;
+declare const apiOnlyOnlineFriends: boolean;

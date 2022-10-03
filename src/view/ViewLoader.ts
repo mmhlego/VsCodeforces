@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { getAPIUserGender } from '../config';
+import { getAPIOnlyOnlineFriends, getAPIUserKey, getAPIUserSecret } from '../config';
 import { Message, CommonMessage } from './messages/messageTypes';
 
 export class ViewLoader {
@@ -90,7 +90,9 @@ export class ViewLoader {
       vscode.Uri.file(path.join(this.context.extensionPath, 'out', 'app', 'bundle.js'))
     );
 
-    const gender = getAPIUserGender();
+    const userKey = getAPIUserKey();
+    const userSecret = getAPIUserSecret();
+    const onlyOnlineFriends = getAPIOnlyOnlineFriends();
 
     return `
       <!DOCTYPE html>
@@ -105,10 +107,12 @@ export class ViewLoader {
           <div id="root"></div>
           <script>
             const vscode = acquireVsCodeApi();
-            const apiUserGender = "${gender}"
+            const apiUserKey = "${userKey}"
+            const apiUserSecret = "${userSecret}"
+            const apiOnlyOnlineFriends = "${onlyOnlineFriends}"
           </script>
           <script>
-            console.log('apiUserGender', apiUserGender)
+            console.log(apiUserKey, apiUserSecret, apiOnlyOnlineFriends)
           </script>
           <script src="${bundleScriptPath}"></script>
         </body>

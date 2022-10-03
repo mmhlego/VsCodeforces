@@ -26,11 +26,6 @@
           "id": "vscodeforces-sidebar-view",
           "title": "VSCodeforces",
           "icon": "media/icon.svg"
-        },
-        {
-          "id": "vscodeforces-sidebar-view2",
-          "title": "VSCodeforces",
-          "icon": "media/icon.svg"
         }
       ]
     },
@@ -43,30 +38,21 @@
           "icon": "media/icon.svg",
           "contextualTitle": "Sample"
         }
-      ],
-      "vscodeforces-sidebar-view2": [
-        {
-          "type": "webview",
-          "id": "vscodeforces-sidebar2",
-          "name": "VSCodeforces",
-          "icon": "media/icon.svg",
-          "contextualTitle": "Sample"
-        }
       ]
     },
     "commands": [],
     "configuration": {
       "title": "VSCodeforces",
       "properties": {
-        "webviewReact.userKey": {
+        "VSCodeforces.userKey": {
           "type": "string",
           "default": ""
         },
-        "webviewReact.userSecret": {
+        "VSCodeforces.userSecret": {
           "type": "string",
           "default": ""
         },
-        "webviewReact.showOnlyOnlineFriends": {
+        "VSCodeforces.showOnlyOnlineFriends": {
           "type": "boolean",
           "default": false,
           "enum": [
@@ -110,6 +96,7 @@
     "mocha": "^8.1.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
+    "sha512-crypt-ts": "^0.1.27",
     "style-loader": "^2.0.0",
     "ts-loader": "^8.0.15",
     "typescript": "^4.1.2",
@@ -118,8 +105,11 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
+    "@types/styled-components": "^5.1.26",
+    "js-sha512": "^0.8.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.3.6"
   }
 }

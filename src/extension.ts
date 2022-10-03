@@ -10,8 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
     //   ViewLoader.showWebview(context);
     // }),
 
-    vscode.window.registerWebviewViewProvider('vscodeforces-sidebar', sidebarProvider),
-    vscode.window.registerWebviewViewProvider('vscodeforces-sidebar2', sidebarProvider)
+    vscode.window.registerWebviewViewProvider('vscodeforces-sidebar', sidebarProvider)
 
     // vscode.commands.registerCommand('extension.sendMessage', () => {
     //   vscode.window
