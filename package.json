@@ -44,6 +44,10 @@
     "configuration": {
       "title": "VSCodeforces",
       "properties": {
+        "VSCodeforces.userHandle": {
+          "type": "string",
+          "default": ""
+        },
         "VSCodeforces.userKey": {
           "type": "string",
           "default": ""

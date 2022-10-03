@@ -1,6 +1,11 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { getAPIOnlyOnlineFriends, getAPIUserKey, getAPIUserSecret } from '../config';
+import {
+  getAPIOnlyOnlineFriends,
+  getAPIUserHandle,
+  getAPIUserKey,
+  getAPIUserSecret,
+} from '../config';
 import { CommonMessage, Message } from './messages/messageTypes';
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
@@ -56,6 +61,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       vscode.Uri.file(path.join(this._context!.extensionPath, 'out', 'app', 'bundle.js'))
     );
 
+    const userHandle = getAPIUserHandle();
     const userKey = getAPIUserKey();
     const userSecret = getAPIUserSecret();
     const onlyOnlineFriends = getAPIOnlyOnlineFriends();
@@ -73,11 +79,12 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           <div id="root"></div>
           <script>
             const vscode = acquireVsCodeApi();
+            const apiUserHandle = "${userHandle}"
             const apiUserKey = "${userKey}"
             const apiUserSecret = "${userSecret}"
             const apiOnlyOnlineFriends = "${onlyOnlineFriends}"
           </script>
-		  <script>console.log(apiUserKey,apiUserSecret,apiOnlyOnlineFriends)</script>
+		  <script>console.log(apiUserHandle,apiUserKey,apiUserSecret,apiOnlyOnlineFriends)</script>
           <script src="${bundleScriptPath}"></script>
         </body>
       </html>
