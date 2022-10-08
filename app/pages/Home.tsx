@@ -1,4 +1,10 @@
 import React from 'react';
+import LinkText from '../components/LinkText';
+import PrimaryButton from '../components/PrimaryButton';
+import SecondaryButton from '../components/SecondaryButton';
+import SecondaryLinkText from '../components/SecondaryLinkText';
+import Title from '../components/Title';
+// import Ping from 'ping-url';
 
 export const Home = () => {
   //   const [contests, setContests] = useState<Contest[]>([]);
@@ -14,13 +20,25 @@ export const Home = () => {
 
   return (
     <>
-      <h3>Component Testing Area</h3>
+      <Title text="Title" />
 
-      {/* <h3>Contest List</h3> */}
-      {/* {contests.slice(0, 15).map((con, index) => (
-        <ContestView key={index} contest={con} index={index} />
-      ))}
-      {contests.length === 0 && <p>No contests found</p>} */}
+      <LinkText
+        text="Link Text"
+        onClick={() => {
+          console.log('Filter');
+        }}
+      />
+
+      <SecondaryLinkText
+        text="Secondary Link Text"
+        onClick={() => {
+          console.log('Filter');
+        }}
+      />
+
+      <PrimaryButton text="Primary Button" />
+
+      <SecondaryButton text="Secondary Button" />
     </>
   );
 };

@@ -12,10 +12,11 @@ export default function PrimaryButton({ text, onClick }: Props) {
 
 const Button = styled.button`
   width: 100%;
-  height: 28px;
+  height: 30px;
   border: none;
   border-radius: 2px;
   margin-bottom: 13px;
   background-color: #368de8;
   color: white;
+  cursor: pointer;
 `;
