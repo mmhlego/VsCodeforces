@@ -14,10 +14,12 @@ export class ViewLoader {
   private panel: vscode.WebviewPanel;
   private context: vscode.ExtensionContext;
   private disposables: vscode.Disposable[];
+  private pageId: string;
 
-  constructor(context: vscode.ExtensionContext) {
+  constructor(context: vscode.ExtensionContext, pageId: string) {
     this.context = context;
     this.disposables = [];
+    this.pageId = pageId;
 
     this.panel = vscode.window.createWebviewPanel('reactApp', 'React App', vscode.ViewColumn.One, {
       enableScripts: true,
@@ -56,7 +58,7 @@ export class ViewLoader {
     this.panel.webview.html = html;
   }
 
-  static showWebview(context: vscode.ExtensionContext) {
+  static showWebview(context: vscode.ExtensionContext, pageId: string) {
     const cls = this;
     const column = vscode.window.activeTextEditor
       ? vscode.window.activeTextEditor.viewColumn
@@ -64,11 +66,9 @@ export class ViewLoader {
     if (cls.currentPanel) {
       cls.currentPanel.reveal(column);
     } else {
-      cls.currentPanel = new cls(context).panel;
+      cls.currentPanel = new cls(context, pageId).panel;
     }
   }
-
-  //TODO show question method
 
   static postMessageToWebview<T extends Message = Message>(message: T) {
     // post message from extension to webview
@@ -110,7 +110,7 @@ export class ViewLoader {
         </head>
     
         <body>
-          <div id="root"></div>
+          <div id="${this.pageId}"></div>
           <script>
             const vscode = acquireVsCodeApi();
             const apiUserHandle = "${userHandle}"
