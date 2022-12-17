@@ -30,3 +30,31 @@ export function getFieldsArray(obj: object): string[] {
     .map((k: string) => `${k}=${obj[k as keyof typeof obj]}`)
     .sort();
 }
+
+export function getTimeString(seconds: number) {
+  seconds = Math.abs(seconds);
+  const minutes = Math.trunc(seconds / 60) % 60;
+  const hours = Math.trunc(seconds / 3600) % 24;
+  const days = Math.trunc(seconds / 86400);
+  if (seconds < 3600) {
+    // less than an hour
+    return `${minutes}min`;
+  } else if (seconds <= 86400) {
+    // less than a day
+    return `${hours}h ${minutes > 0 ? `${minutes}min` : ''}`;
+  } else {
+    // more than a day
+    return `${days}d  ${hours > 0 ? `${hours}h` : ''}`;
+  }
+}
+
+export function getDifficultyColor(min: number, max: number, difficulty?: number) {
+  if (!difficulty) {
+    return 'transparent';
+  }
+
+  const colors = ['#7CCD3D', '#ECE53F', '#EC8E1F', '#E5632A', '#D93636'];
+  const range = max - min + 1;
+  difficulty = Math.trunc((difficulty - min) / range) * 5;
+  return colors[difficulty];
+}
