@@ -1,44 +1,34 @@
 import React from 'react';
-import LinkText from '../components/LinkText';
-import PrimaryButton from '../components/PrimaryButton';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import SecondaryButton from '../components/SecondaryButton';
-import SecondaryLinkText from '../components/SecondaryLinkText';
-import Title from '../components/Title';
-// import Ping from 'ping-url';
 
 export const Home = () => {
-  //   const [contests, setContests] = useState<Contest[]>([]);
-
-  //   ContestList().then(res => {
-  //     if (res.status === 'OK') {
-  //       res.result?.sort((a: Contest, b: Contest) => b.startTimeSeconds - a.startTimeSeconds);
-  //       setContests(res.result!);
-  //
-  //       console.log(contests.slice(0, 15));
-  //     }
-  //   });
+  const navigate = useNavigate();
 
   return (
-    <>
-      <Title text="Title" />
-
-      <LinkText
-        text="Link Text"
-        onClick={() => {
-          console.log('Filter');
-        }}
-      />
-
-      <SecondaryLinkText
-        text="Secondary Link Text"
-        onClick={() => {
-          console.log('Filter');
-        }}
-      />
-
-      <PrimaryButton text="Primary Button" />
-
-      <SecondaryButton text="Secondary Button" />
-    </>
+    <Container>
+      <Title>Welcome '{'Name'}'</Title>
+      <SecondaryButton text="Contests" onClick={() => navigate('/contests')} />
+      <SecondaryButton text="Problemset" onClick={() => navigate('/problems')} />
+      <SecondaryButton text="My Profile" onClick={() => navigate('/profile')} />
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 20px;
+`;
+
+const Title = styled.p`
+  width: 100%;
+  font-size: 30px;
+  font-weight: 200;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+`;

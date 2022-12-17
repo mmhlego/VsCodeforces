@@ -15,7 +15,6 @@ const Button = styled.button`
   height: 30px;
   border: none;
   border-radius: 2px;
-  margin-bottom: 13px;
   background-color: var(--vscode-button-background);
   color: var(--vscode-button-secondaryForeground);
   cursor: pointer;
