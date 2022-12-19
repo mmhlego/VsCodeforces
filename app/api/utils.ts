@@ -41,20 +41,25 @@ export function getTimeString(seconds: number) {
     return `${minutes}min`;
   } else if (seconds <= 86400) {
     // less than a day
-    return `${hours}h ${minutes > 0 ? `${minutes}min` : ''}`;
+    return `${hours}h ${minutes}min`;
   } else {
     // more than a day
-    return `${days}d  ${hours > 0 ? `${hours}h` : ''}`;
+    return `${days}d  ${hours}h`;
   }
 }
 
-export function getDifficultyColor(min: number, max: number, difficulty?: number) {
+export function getDifficultyColor(
+  min: number,
+  max: number,
+  difficulty?: number,
+  defaultValue: string = 'transparent'
+) {
   if (!difficulty) {
-    return 'transparent';
+    return defaultValue;
   }
 
   const colors = ['#7CCD3D', '#ECE53F', '#EC8E1F', '#E5632A', '#D93636'];
   const range = max - min + 1;
-  difficulty = Math.trunc((difficulty - min) / range) * 5;
+  difficulty = Math.trunc(((difficulty - min) / range) * 5);
   return colors[difficulty];
 }

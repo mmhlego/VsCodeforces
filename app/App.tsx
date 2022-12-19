@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { ContextProvider } from './context/MainContext';
 import Contests from './pages/Contests';
 import { Home } from './pages/Home';
+import Problems from './pages/Problems';
 import TestPage from './pages/TestPage';
 
 export const App = () => {
@@ -40,7 +41,7 @@ export const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/test" element={<TestPage />} />
             <Route path="/contests" element={<Contests />} />
-            <Route path="/problems" element={<p>Problems</p>} />
+            <Route path="/problems" element={<Problems />} />
             <Route path="/profile" element={<p>Profile</p>} />
           </Routes>
         </Router>
