@@ -4,8 +4,6 @@ import { getDifficultyColor } from '../api/utils';
 import Problem from '../model/Problem';
 import ProblemStatistics from '../model/ProblemStatistics';
 import Tag from './Tag';
-import { ViewLoader } from './../../src/view/ViewLoader';
-import * as vscode from 'vscode';
 
 interface Props {
   problem: Problem;
@@ -19,15 +17,6 @@ export default function ProblemView({ problem, statistics, index }: Props) {
       onClick={() => {
         console.log(problem);
         console.log(statistics);
-
-        //         const context: vscode.ExtensionContext = vscode.Extension;
-        //         const sidebarProvider = new SidebarProvider(context.extensionUri);
-        //         sidebarProvider.setContext(context);
-        //
-        // vscode.commands.registerCommand('webview.open', () => {
-        // ViewLoader.showWebview(context, 'problem');
-        // });
-        //           vscode.window.registerWebviewViewProvider('vscodeforces-sidebar', sidebarProvider);
       }}
       style={{
         borderLeft: `3px solid ${getDifficultyColor(800, 3500, problem.rating, '#444A54')}`,

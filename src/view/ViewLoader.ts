@@ -12,19 +12,21 @@ export class ViewLoader {
   public static currentPanel?: vscode.WebviewPanel;
 
   private panel: vscode.WebviewPanel;
-  private context: vscode.ExtensionContext;
+  private static context: vscode.ExtensionContext;
   private disposables: vscode.Disposable[];
   private pageId: string;
 
   constructor(context: vscode.ExtensionContext, pageId: string) {
-    this.context = context;
+    ViewLoader.context = context;
     this.disposables = [];
     this.pageId = pageId;
 
     this.panel = vscode.window.createWebviewPanel('reactApp', 'React App', vscode.ViewColumn.One, {
       enableScripts: true,
       retainContextWhenHidden: true,
-      localResourceRoots: [vscode.Uri.file(path.join(this.context.extensionPath, 'out', 'app'))],
+      localResourceRoots: [
+        vscode.Uri.file(path.join(ViewLoader.context.extensionPath, 'out', 'app')),
+      ],
     });
 
     // render webview
@@ -51,6 +53,14 @@ export class ViewLoader {
       null,
       this.disposables
     );
+  }
+
+  static setContext(context: vscode.ExtensionContext) {
+    ViewLoader.context = context;
+  }
+
+  static createNewWebview(pageId: string) {
+    return new ViewLoader(ViewLoader.context, pageId);
   }
 
   private renderWebview() {
@@ -92,7 +102,7 @@ export class ViewLoader {
 
   render() {
     const bundleScriptPath = this.panel.webview.asWebviewUri(
-      vscode.Uri.file(path.join(this.context.extensionPath, 'out', 'app', 'bundle.js'))
+      vscode.Uri.file(path.join(ViewLoader.context.extensionPath, 'out', 'app', 'bundle.js'))
     );
 
     const userHandle = getAPIUserHandle();

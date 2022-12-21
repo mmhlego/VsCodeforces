@@ -91,3 +91,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     `;
   }
 }
+export function setContext(context: Mocha.SuiteFunction) {
+  throw new Error('Function not implemented.');
+}
