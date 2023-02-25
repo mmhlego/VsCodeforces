@@ -1,15 +1,24 @@
 export type MessageType = 'RELOAD' | 'COMMON';
 
-export interface Message {
-  type: MessageType;
-  payload?: any;
-}
-
-export interface CommonMessage extends Message {
+type CommonMessage = {
   type: 'COMMON';
   payload: string;
-}
+};
 
-export interface ReloadMessage extends Message {
+type NotificationMessage = {
+  type: 'NOTIFICATION';
+  payload: string;
+};
+
+type ProblemWindowMessage = {
+  type: 'PROBLEM';
+  payload: string;
+};
+
+type ReloadMessage = {
   type: 'RELOAD';
-}
+};
+
+type Message = CommonMessage | NotificationMessage | ProblemWindowMessage | ReloadMessage;
+
+export default Message;

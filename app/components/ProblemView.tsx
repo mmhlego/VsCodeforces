@@ -15,6 +15,11 @@ export default function ProblemView({ problem, statistics, index }: Props) {
   return (
     <Container
       onClick={() => {
+        VsCode.postMessage({
+          type: 'PROBLEM',
+          payload: problem.contestId ? `${problem.contestId}/${problem.index}` : problem.index,
+        });
+
         console.log(problem);
         console.log(statistics);
       }}

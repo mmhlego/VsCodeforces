@@ -6,7 +6,8 @@ import {
   getAPIUserKey,
   getAPIUserSecret,
 } from '../config';
-import { CommonMessage, Message } from './messages/messageTypes';
+import Message from './messages/messageTypes';
+import { ViewLoader } from './ViewLoader';
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
   _view?: vscode.WebviewView;
@@ -31,25 +32,29 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
     webviewView.webview.onDidReceiveMessage(async (message: Message) => {
       switch (message.type) {
+        case 'NOTIFICATION': {
+          vscode.window.showInformationMessage('Sidebar Provider');
+          break;
+        }
+        case 'PROBLEM': {
+          const problemWebView = new ViewLoader(this._context!, message.payload);
+
+          //   this._context!.subscriptions.push(
+          vscode.window.registerWebviewViewProvider('vscodeforces-problemview', problemWebView);
+          //   );
+          break;
+        }
         case 'RELOAD': {
           vscode.commands.executeCommand('workbench.action.webview.reloadWebviewAction');
           break;
         }
         case 'COMMON': {
-          const text = (message as CommonMessage).payload;
+          const text = message.payload;
           vscode.window.showInformationMessage(`Received message from Webview: ${text}`);
           break;
         }
       }
     });
-
-    // webviewView.onDidDispose(
-    //   () => {
-    //     this.dispose();
-    //   },
-    //   null,
-    //   this.disposables
-    // );
   }
 
   public revive(panel: vscode.WebviewView) {
@@ -72,17 +77,18 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>React App</title>
+          <title>VSCODEFORCES</title>
         </head>
     
         <body>
           <div id="root"></div>
           <script>
-            const vscode = acquireVsCodeApi();
+            const VsCode = acquireVsCodeApi();
             const apiUserHandle = "${userHandle}"
             const apiUserKey = "${userKey}"
             const apiUserSecret = "${userSecret}"
             const apiOnlyOnlineFriends = "${onlyOnlineFriends}"
+			const problemId = ""
           </script>
 		  <script>console.log(apiUserHandle,apiUserKey,apiUserSecret,apiOnlyOnlineFriends)</script>
           <script src="${bundleScriptPath}"></script>

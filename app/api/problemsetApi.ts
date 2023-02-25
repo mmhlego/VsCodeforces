@@ -13,3 +13,10 @@ export function ProblemsList(): Promise<CfResponse<Response>> {
     return response.json();
   });
 }
+
+export function ProblemText(problemId: string): Promise<string> {
+  return fetch(`https://codeforces.com/problemset/problem/` + problemId).then(response => {
+    console.log('response', response);
+    return response.text();
+  });
+}

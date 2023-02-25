@@ -6,20 +6,20 @@ import {
   getAPIUserKey,
   getAPIUserSecret,
 } from '../config';
-import { Message, CommonMessage } from './messages/messageTypes';
+import Message from './messages/messageTypes';
 
-export class ViewLoader {
+export class ViewLoader implements vscode.WebviewViewProvider {
   public static currentPanel?: vscode.WebviewPanel;
 
   private panel: vscode.WebviewPanel;
   private static context: vscode.ExtensionContext;
   private disposables: vscode.Disposable[];
-  private pageId: string;
+  private problemId: string;
 
-  constructor(context: vscode.ExtensionContext, pageId: string) {
+  constructor(context: vscode.ExtensionContext, problemId: string) {
     ViewLoader.context = context;
     this.disposables = [];
-    this.pageId = pageId;
+    this.problemId = problemId;
 
     this.panel = vscode.window.createWebviewPanel('reactApp', 'React App', vscode.ViewColumn.One, {
       enableScripts: true,
@@ -35,11 +35,23 @@ export class ViewLoader {
     // listen messages from webview
     this.panel.webview.onDidReceiveMessage(
       (message: Message) => {
-        if (message.type === 'RELOAD') {
+        if (message.type === 'NOTIFICATION') {
+          vscode.window.showInformationMessage(message.payload);
+        } else if (message.type === 'RELOAD') {
           vscode.commands.executeCommand('workbench.action.webview.reloadWebviewAction');
         } else if (message.type === 'COMMON') {
-          const text = (message as CommonMessage).payload;
+          const text = message.payload;
           vscode.window.showInformationMessage(`Received message from Webview: ${text}`);
+
+          vscode.window.showQuickPick(['Python', 'Java', 'C++'], {
+            canPickMany: false,
+            onDidSelectItem(item) {
+              console.log(item);
+            },
+            placeHolder: 'Select your preferred language',
+            title: 'Open file to solve this problem:',
+            ignoreFocusOut: true,
+          });
         }
       },
       null,
@@ -54,13 +66,20 @@ export class ViewLoader {
       this.disposables
     );
   }
+  resolveWebviewView(
+    webviewView: vscode.WebviewView,
+    context: vscode.WebviewViewResolveContext<unknown>,
+    token: vscode.CancellationToken
+  ): void | Thenable<void> {
+    vscode.window.showErrorMessage('Method not implemented.');
+  }
 
   static setContext(context: vscode.ExtensionContext) {
     ViewLoader.context = context;
   }
 
-  static createNewWebview(pageId: string) {
-    return new ViewLoader(ViewLoader.context, pageId);
+  static createNewWebview(problemId: string) {
+    return new ViewLoader(ViewLoader.context, problemId);
   }
 
   private renderWebview() {
@@ -68,7 +87,7 @@ export class ViewLoader {
     this.panel.webview.html = html;
   }
 
-  static showWebview(context: vscode.ExtensionContext, pageId: string) {
+  static showWebview(context: vscode.ExtensionContext, problemId: string) {
     const cls = this;
     const column = vscode.window.activeTextEditor
       ? vscode.window.activeTextEditor.viewColumn
@@ -76,7 +95,7 @@ export class ViewLoader {
     if (cls.currentPanel) {
       cls.currentPanel.reveal(column);
     } else {
-      cls.currentPanel = new cls(context, pageId).panel;
+      cls.currentPanel = new cls(context, problemId).panel;
     }
   }
 
@@ -116,17 +135,18 @@ export class ViewLoader {
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>React App</title>
+          <title>${this.problemId}</title>
         </head>
     
         <body>
-          <div id="${this.pageId}"></div>
+          <div id="problemView"></div>
           <script>
-            const vscode = acquireVsCodeApi();
+            const VsCode = acquireVsCodeApi();
             const apiUserHandle = "${userHandle}"
             const apiUserKey = "${userKey}"
             const apiUserSecret = "${userSecret}"
             const apiOnlyOnlineFriends = "${onlyOnlineFriends}"
+			const problemId = "${this.problemId}"
           </script>
 		  <script>console.log(apiUserHandle,apiUserKey,apiUserSecret,apiOnlyOnlineFriends)</script>
           <script src="${bundleScriptPath}"></script>
