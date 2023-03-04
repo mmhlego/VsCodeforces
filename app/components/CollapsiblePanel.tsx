@@ -1,22 +1,37 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import ArrowLeft from '../assets/ArrowLeft';
 import LinkText from './LinkText';
 
 interface Props {
+  hasBackButton?: boolean;
   text: string;
   openText: string;
-  children?: JSX.Element[] | JSX.Element;
+  style?: React.CSSProperties;
+  children?: ReactNode;
 }
 
-export default function CollapsiblePanel({ text, openText, children }: Props) {
+export default function CollapsiblePanel({
+  hasBackButton = false,
+  text,
+  openText,
+  style,
+  children,
+}: Props) {
   const [opened, setOpened] = useState(false);
 
   const toggleOpened = () => setOpened(prev => !prev);
 
+  const navigate = useNavigate();
+
   return (
-    <Container>
+    <Container style={style}>
       <Row>
-        <p>{text}</p>
+        <Title>
+          {hasBackButton && <ArrowLeft onClick={() => navigate(-1)} />}
+          {text}
+        </Title>
         <LinkText text={openText} onClick={toggleOpened} />
       </Row>
       <Content style={opened ? { maxHeight: '100vh', padding: '15px' } : { maxHeight: '0px' }}>
@@ -28,6 +43,7 @@ export default function CollapsiblePanel({ text, openText, children }: Props) {
 
 const Container = styled.div`
   width: 100%;
+  background-color: #21252b;
 `;
 
 const Row = styled.div`
@@ -41,8 +57,17 @@ const Row = styled.div`
   font-size: 14px;
 `;
 
+const Title = styled.div`
+  font-weight: 600;
+  font-size: medium;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+`;
+
 const Content = styled.div`
   width: 100%;
+  background-color: '#21252b';
   display: flex;
   flex-direction: column;
   gap: 15px;

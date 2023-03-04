@@ -4,22 +4,23 @@ type Props = {
   onClick?: () => void;
 };
 
-export default function ArrowDown({ onClick }: Props) {
+export default function ArrowLeft({ onClick }: Props) {
   return (
     <svg
       onClick={onClick}
-      width="14"
-      height="8"
-      viewBox="0 0 14 8"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ cursor: onClick ? 'pointer' : 'default', display: 'block' }}
     >
       <path
-        d="M1 1C2.83333 3 6.93841 7 7 7C7.06159 7 11.1667 3 13 1"
+        d="M15 19.92L8.48 13.4c-.77-.77-.77-2.03 0-2.8L15 4.08"
         stroke="white"
         strokeWidth="1.5"
         strokeLinecap="round"
-      />
+      ></path>
     </svg>
   );
 }

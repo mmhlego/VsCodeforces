@@ -17,7 +17,6 @@ export default function Contests() {
   const [filterPhase, setFilterPhase] = useState('All');
 
   useEffect(() => {
-    // TODO fix
     ContestList()
       .then(res => {
         setAllContests(res.result ? res.result : []);
@@ -34,22 +33,27 @@ export default function Contests() {
     setContests(
       allContests?.filter(
         c =>
-          (c.name.includes(filterText) || filterText.length === 0) &&
-          (c.type === filterType || filterType === 'Any') &&
-          ((c.relativeTimeSeconds &&
-            ((c.relativeTimeSeconds < 0 && filterPhase === 'Before') ||
-              (c.relativeTimeSeconds >= 0 &&
-                c.relativeTimeSeconds <= c.durationSeconds &&
-                filterPhase === 'Running') ||
-              (c.relativeTimeSeconds > c.durationSeconds && filterPhase === 'Finished'))) ||
-            filterPhase === 'All')
+          (filterText.length === 0 || c.name.includes(filterText)) &&
+          (filterType === 'Any' || c.type === filterType) &&
+          c.relativeTimeSeconds &&
+          (filterPhase === 'All' ||
+            (filterPhase === 'Before' && c.relativeTimeSeconds < 0) ||
+            (filterPhase === 'Running' &&
+              0 <= c.relativeTimeSeconds &&
+              c.relativeTimeSeconds <= c.durationSeconds) ||
+            (filterPhase === 'Finished' && c.relativeTimeSeconds > c.durationSeconds))
       )
     );
   };
 
   return (
     <Container>
-      <CollapsiblePanel text="Contests:" openText="Filter">
+      <CollapsiblePanel
+        hasBackButton={true}
+        text="Contests:"
+        openText="Filter"
+        style={{ position: 'sticky', top: '0px' }}
+      >
         <DropDown label="Type" items={['Any', 'ICPC', 'IOI', 'CF']} onChange={setFilterType} />
         <DropDown
           label="Phase"
