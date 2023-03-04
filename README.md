@@ -21,7 +21,7 @@ You can view list of all contests and filter them base on one of these factors:
   - **Finished**: Contests that are finished.
 - **Name**: You can also search contests by name. For example you can search 'Educational Round' and the result page contains all the educational rounds.
 
-![View and filter contests](./media/ContestsList.gif)
+![View and filter contests](./media/ContestsListPreview.gif)
 
 ### View and Filter problemset
 
