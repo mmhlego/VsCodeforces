@@ -38,15 +38,15 @@ _NOTE: Problemset filter is currently being implemented and tested. Thus the vid
 
 ### View contests and its information
 
-// Coming Soon ...
+Upon clicking on a contest, the contest information panel will open which displays all the information about the contest including duration, problems, solves, rating and many more.
 
 ### View problem and solve it
 
-// Coming Soon ...
+When clicking on a problem in the problemset list or any place, you are able to see the problem prompt and test cases within the vs code and start solving it with your preferred language and template. Also after solving the problem you can submit an view submission result with this extension.
 
 ### View and Manage profile
 
-// Coming Soon ...
+You can view and manage your codeforces profile via the extension without needing to open in it browser. Also you can view your latest submissions, rating graph, friends and etc.
 
 ## Contribute
 
