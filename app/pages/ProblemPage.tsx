@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { ProblemText } from '../api/problemsetApi';
 import PrimaryButton from '../components/PrimaryButton';
 
 export default function ProblemPage() {

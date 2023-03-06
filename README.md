@@ -34,7 +34,7 @@ This extension also enables the ability to browse and filter problems based on d
 
 _NOTE: Problemset filter is currently being implemented and tested. Thus the video below doesn't contain filter fields._
 
-![View Problemset](./media/ProblemsetList.gif)
+![View Problemset](./media/ProblemsListPreview.gif)
 
 ### View contests and its information
 

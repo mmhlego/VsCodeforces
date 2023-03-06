@@ -94,13 +94,13 @@ export default function Problems() {
       >
         <InputField label="Name" placeholder="..." onChange={setFilterText} />
         {/* // TODO: complete filter by tag section */}
-        <DropDown label="Type" items={tags} onChange={val => console.log(val)} />
+        <DropDown label="Tags" items={tags} onChange={val => console.log(val)} />
         <FilterRow>
           <InputField
             label="Rating"
             placeholder="From"
             type="number"
-            onChange={val => setFilterRatingFrom(parseInt(val))}
+            onChange={val => setFilterRatingFrom(val.length > 0 ? parseInt(val) : '')}
           />
           <FilterDash>-</FilterDash>
           <InputField
