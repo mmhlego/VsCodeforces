@@ -21,7 +21,7 @@ export default function DropDown({ label, items, onChange }: Props) {
         <p>{selected === -1 ? 'Select an item' : items[selected]}</p>
         <ArrowDown />
       </Box>
-      <Options style={opened ? { maxHeight: '100vh', padding: '2px 5px' } : { maxHeight: '0px' }}>
+      <Options style={opened ? { maxHeight: '110px', padding: '2px 5px' } : { maxHeight: '0px' }}>
         {items.map((item, index) => (
           <Option
             key={index}
@@ -67,12 +67,14 @@ const Options = styled.div`
   flex-direction: column;
   gap: 4px;
   width: 100%;
+  overflow-y: scroll;
   top: 52px;
   left: 0px;
   border-radius: 4px;
-  background-color: #444a54;
+  /* background-color: #444a54; */
+  background-color: #54585f;
   transition: all ease 300ms;
-  overflow: hidden;
+  /* overflow: hidden; */
   z-index: 10;
 `;
 

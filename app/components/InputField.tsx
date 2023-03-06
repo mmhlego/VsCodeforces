@@ -2,16 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  label: string;
-  placeholder: string;
+  label?: string;
+  placeholder?: string;
+  type?: 'text' | 'number';
   onChange: (newVal: string) => void;
 }
 
-export default function InputField({ label, placeholder, onChange }: Props) {
+export default function InputField({ label, placeholder = '', type = 'text', onChange }: Props) {
   return (
     <Container>
       <Text>{label}</Text>
-      <Input placeholder={placeholder} onChange={e => onChange(e.target.value)} />
+      <Input type={type} placeholder={placeholder} onChange={e => onChange(e.target.value)} />
     </Container>
   );
 }
@@ -38,5 +39,9 @@ const Input = styled.input`
   color: white;
   :focus {
     outline: none;
+  }
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button {
+    display: none;
   }
 `;
