@@ -59,6 +59,7 @@ Also special thanks to [Hacker0limbo](https://github.com/hacker0limbo) for their
 ## License
 
 Copyright (c) 2023, Mohammad Mahdi Hejazi
+
 All rights reserved.
 
 This source code is licensed under the MIT license found in the
