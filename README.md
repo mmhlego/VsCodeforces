@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # VsCodeforces: Codeforces for VScode
 
 This extension provides full access to codeforces website via its apis.
@@ -54,4 +56,10 @@ If you like to help improving this extension, take a look at `/app/` directory f
 
 Also special thanks to [Hacker0limbo](https://github.com/hacker0limbo) for their boilerplate.
 
-<!-- ## License -->
+## License
+
+Copyright (c) 2023, Mohammad Mahdi Hejazi
+All rights reserved.
+
+This source code is licensed under the MIT license found in the
+LICENSE file in the root directory of this source tree. 
