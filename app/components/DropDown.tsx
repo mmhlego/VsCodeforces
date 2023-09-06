@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ArrowDown from '../assets/arrowDown';
+import ArrowDown from '../assets/ArrowDown';
 
 interface Props {
   label: string;
@@ -21,7 +21,7 @@ export default function DropDown({ label, items, onChange }: Props) {
         <p>{selected === -1 ? 'Select an item' : items[selected]}</p>
         <ArrowDown />
       </Box>
-      <Options style={opened ? { maxHeight: '110px', padding: '2px 5px' } : { maxHeight: '0px' }}>
+      <Options style={opened ? { maxHeight: '100vh', padding: '2px 5px' } : { maxHeight: '0px' }}>
         {items.map((item, index) => (
           <Option
             key={index}
@@ -67,14 +67,12 @@ const Options = styled.div`
   flex-direction: column;
   gap: 4px;
   width: 100%;
-  overflow-y: scroll;
   top: 52px;
   left: 0px;
   border-radius: 4px;
-  /* background-color: #444a54; */
-  background-color: #54585f;
+  background-color: #444a54;
   transition: all ease 300ms;
-  /* overflow: hidden; */
+  overflow: hidden;
   z-index: 10;
 `;
 
@@ -82,6 +80,7 @@ const Option = styled.p`
   width: 100%;
   cursor: pointer;
   height: 27px;
+  line-height: 27px;
   text-align: left;
   border-bottom: 1px solid #4d5564;
 
